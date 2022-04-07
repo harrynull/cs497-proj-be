@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package api;
+
+enum Stage {
+  Applied = 0;
+  OnlineAssessment = 1;
+  Interview = 2;
+  Interview2 = 3;
+  Interview3 = 4;
+  Offer = 5;
+}
+
+enum Gender {
+  CIS_FEMALE = 0;
+  CIS_MALE = 1;
+  TRANS_FEMALE = 2;
+  TRANS_MALE = 3;
+  AGENDER = 4;
+  GENDER_FLUID = 5;
+  BIGENDER = 6;
+  OTHER_GENDER = 7;
+}
+
+enum SexualOrientation {
+  HETEROSEXUAL = 0;
+  HOMOSEXUAL = 1;
+  BISEXUAL = 2;
+  ASEXUAL = 3;
+  OTHER_SEXUAL_ORIENTATION = 4;
+}
+
+enum RacialOrigin {
+  AMERICAN_INDIAN = 0;
+  ASIAN = 1;
+  AFRICAN_AMERICAN = 2;
+  HISPANIC = 3;
+  WHITE = 4;
+  OTHER_RACIAL_ORIGIN = 5;
+}
+
+enum VisaStatus {
+  NATIONAL = 0;
+  VISA_HOLDER = 1;
+  NO_STATUS = 2;
+}
+
+enum MarriageStatus {
+  SINGLE = 0;
+  MARRIED = 1;
+  DIVORCED = 2;
+  WIDOWED = 3;
+  OTHER_MARITAL_STATUS = 4;
+}
+
+enum EducationLevel {
+  NO_EDUCATION = 0;
+  HIGH_SCHOOL = 1;
+  ASSOCIATES = 2;
+  BACHELORS = 3;
+  MASTERS = 4;
+  DOCTORATE = 5;
+  OTHER_EDUCATION = 6;
+}
+
+message SubmitApplicationStatus {
+  string company_name = 1;
+  Stage stage = 2;
+  string job_title = 3;
+  int32 hourly_compensation = 4;
+  int64 date_of_decision = 5;
+
+  Gender gender = 6;
+  SexualOrientation sexual_orientation = 7;
+  RacialOrigin racial_origin = 8;
+  VisaStatus visa_status = 9;
+  string nationality = 10;
+  bool disability = 11;
+  bool veteran_status = 12;
+  bool criminal_background = 13;
+  bool indigenous = 14;
+  MarriageStatus marriage_status = 15;
+
+  EducationLevel education_level = 16;
+  bool graduated = 17;
+  int32 years_of_experience = 18;
+  int32 co_op_term = 19;
+  double gpa = 20;
+}
+
+message Company {
+  int32 id = 1;
+  string name = 2;
+}
