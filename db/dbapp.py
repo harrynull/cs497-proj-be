@@ -7,6 +7,7 @@ class DbApp(Base):
     __tablename__ = 'application'
     id = Column(Integer, primary_key=True, autoincrement=True)
     company_name = Column(String(64))
+    company_domain = Column(String(64))
     stage = Column(Integer)
     job_title = Column(String(64))
     hourly_compensation = Column(Integer)

@@ -4,15 +4,16 @@ from sqlalchemy import func
 
 from db import Session
 from db.dbapp import *
-from models.api import SubmitApplicationStatus, CompanyStatsRequest, Stage
+from models.api import SubmitApplicationStatus, CompanyStatsRequest, Stage, Company
 
 app = Flask(__name__)
 
 
 @app.route('/company/', methods=['GET'])
 def get_companies():
-    return jsonify(list(map(lambda x: x.company_name,
-                            Session().query(DbApp.company_name).distinct().all())))
+    return jsonify([Company(name=c.company_name, domain=c.company_domain)
+                    for c in Session().query(DbApp.company_name, DbApp.company_domain)
+                   .distinct().all()])
 
 
 @app.route('/company/<name>/jobs/', methods=['GET'])
@@ -66,11 +67,13 @@ def get_company_stats(name: str):
         }[attr_name]
 
     req = CompanyStatsRequest().from_dict(request.json)
+    resp = {}
     with Session() as session:
-        resp = {
+        resp['stages'] = {
             stage.name: {attr: count(stage, str2field(attr)) for attr in req.interested_attributes}
             for stage in Stage
         }
+    resp['domain'] = Session().query(DbApp.company_domain).filter(DbApp.company_name == name).distinct().first()[0]
     return resp
 
 
@@ -80,6 +83,7 @@ def submit_app():
     with Session() as session:
         session.add(DbApp(
             company_name=application.company_name,
+            company_domain=application.company_domain,
             stage=application.stage,
             job_title=application.job_title,
             hourly_compensation=application.hourly_compensation,

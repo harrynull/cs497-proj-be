@@ -3,12 +3,10 @@ syntax = "proto3";
 package api;
 
 enum Stage {
-  Applied = 0;
-  OnlineAssessment = 1;
-  Interview = 2;
-  Interview2 = 3;
-  Interview3 = 4;
-  Offer = 5;
+  APPLIED = 0;
+  ONLINE_ASSESSMENT = 1;
+  INTERVIEW = 2;
+  OFFER = 3;
 }
 
 enum Gender {
@@ -54,7 +52,7 @@ enum MarriageStatus {
 }
 
 enum EducationLevel {
-  NO_EDUCATION = 0;
+  BELOW_HIGH_SCHOOL = 0;
   HIGH_SCHOOL = 1;
   ASSOCIATES = 2;
   BACHELORS = 3;
@@ -63,8 +61,16 @@ enum EducationLevel {
   OTHER_EDUCATION = 6;
 }
 
+enum BooleanAnswer {
+  YES = 0;
+  NO = 1;
+  PREFER_NOT_TO_ANSWER = 2;
+}
+
 message SubmitApplicationStatus {
+  // next 22
   string company_name = 1;
+  string company_domain = 21;
   Stage stage = 2;
   string job_title = 3;
   int32 hourly_compensation = 4;
@@ -75,14 +81,14 @@ message SubmitApplicationStatus {
   RacialOrigin racial_origin = 8;
   VisaStatus visa_status = 9;
   string nationality = 10;
-  bool disability = 11;
-  bool veteran_status = 12;
-  bool criminal_background = 13;
-  bool indigenous = 14;
+  BooleanAnswer disability = 11;
+  BooleanAnswer veteran_status = 12;
+  BooleanAnswer criminal_background = 13;
+  BooleanAnswer indigenous = 14;
   MarriageStatus marriage_status = 15;
 
   EducationLevel education_level = 16;
-  bool graduated = 17;
+  string year_of_graduation = 17;
   int32 years_of_experience = 18;
   int32 co_op_term = 19;
   double gpa = 20;
@@ -91,5 +97,10 @@ message SubmitApplicationStatus {
 message CompanyStatsRequest {
   repeated string interested_attributes = 1;
   string job_title_filter = 2;
+}
+
+message Company {
+  string name = 1;
+  string domain = 2;
 }
 
