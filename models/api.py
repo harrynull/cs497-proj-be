@@ -2,6 +2,7 @@
 # sources: protos/api.proto
 # plugin: python-betterproto
 from dataclasses import dataclass
+from typing import List
 
 import betterproto
 
@@ -92,6 +93,6 @@ class SubmitApplicationStatus(betterproto.Message):
 
 
 @dataclass
-class Company(betterproto.Message):
-    id: int = betterproto.int32_field(1)
-    name: str = betterproto.string_field(2)
+class CompanyStatsRequest(betterproto.Message):
+    interested_attributes: List[str] = betterproto.string_field(1)
+    job_title_filter: str = betterproto.string_field(2)

@@ -88,7 +88,8 @@ message SubmitApplicationStatus {
   double gpa = 20;
 }
 
-message Company {
-  int32 id = 1;
-  string name = 2;
+message CompanyStatsRequest {
+  repeated string interested_attributes = 1;
+  string job_title_filter = 2;
 }
+
