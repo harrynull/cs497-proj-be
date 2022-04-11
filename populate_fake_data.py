@@ -31,7 +31,6 @@ def uniformenum(enum):
 ENDPOINT = 'http://localhost:8080/apps/'
 COMPANIES = [
     ('Google', 'google.com'),
-    ('Shopify', 'shopify.com'),
     ('Faire', 'faire.com'),
     ('Spotify', 'spotify.com'),
     ('Meta', 'facebook.com'),
@@ -41,7 +40,6 @@ COMPANIES = [
     ('Microsoft', 'microsoft.com'),
     ('Apple', 'apple.com'),
 ]
-
 
 if __name__ == '__main__':
     for i in range(15):
@@ -67,4 +65,4 @@ if __name__ == '__main__':
             year_of_graduation=random.randint(2020, 2026),
             years_of_experience=random.randint(0, 3),
             gpa=random.normalvariate(50, 5),
-        ).to_dict()).text)
+        ).to_dict(include_default_values=True)).text)

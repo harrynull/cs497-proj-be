@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package api;
 
@@ -69,37 +69,37 @@ enum BooleanAnswer {
 
 message SubmitApplicationStatus {
   // next 22
-  string company_name = 1;
-  string company_domain = 21;
-  Stage stage = 2;
-  string job_title = 3;
-  int32 hourly_compensation = 4;
-  int64 date_of_decision = 5;
+  optional string company_name = 1;
+  optional string company_domain = 21;
+  optional Stage stage = 2;
+  optional string job_title = 3;
+  optional int32 hourly_compensation = 4;
+  optional int64 date_of_decision = 5;
 
-  Gender gender = 6;
-  SexualOrientation sexual_orientation = 7;
-  RacialOrigin racial_origin = 8;
-  VisaStatus visa_status = 9;
-  string nationality = 10;
-  BooleanAnswer disability = 11;
-  BooleanAnswer veteran_status = 12;
-  BooleanAnswer criminal_background = 13;
-  BooleanAnswer indigenous = 14;
-  MarriageStatus marriage_status = 15;
+  optional Gender gender = 6;
+  optional SexualOrientation sexual_orientation = 7;
+  optional RacialOrigin racial_origin = 8;
+  optional VisaStatus visa_status = 9;
+  optional string nationality = 10;
+  optional BooleanAnswer disability = 11;
+  optional BooleanAnswer veteran_status = 12;
+  optional BooleanAnswer criminal_background = 13;
+  optional BooleanAnswer indigenous = 14;
+  optional MarriageStatus marriage_status = 15;
 
-  EducationLevel education_level = 16;
-  int32 year_of_graduation = 17;
-  int32 years_of_experience = 18;
-  double gpa = 20;
+  optional EducationLevel education_level = 16;
+  optional int32 year_of_graduation = 17;
+  optional int32 years_of_experience = 18;
+  optional double gpa = 20;
 }
 
 message CompanyStatsRequest {
   repeated string interested_attributes = 1;
-  string job_title_filter = 2;
+  optional string job_title_filter = 2;
 }
 
 message Company {
-  string name = 1;
-  string domain = 2;
+  optional string name = 1;
+  optional string domain = 2;
 }
 
