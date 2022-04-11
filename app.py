@@ -7,6 +7,7 @@ from db.dbapp import *
 from models.api import SubmitApplicationStatus, CompanyStatsRequest, Stage, Company
 
 app = Flask(__name__)
+MIN_SAMPLES = 5
 
 
 @app.route('/company/', methods=['GET'])
@@ -66,11 +67,18 @@ def get_company_stats(name: str):
             "years_of_experience": DbApp.years_of_experience,
         }[attr_name]
 
+    # filter small samples
+    def filter_small_samples(attr_counts: dict):
+        if min(sum(v.values()) for v in attr_counts.values()) < MIN_SAMPLES:
+            return {}
+        return attr_counts
+
     req = CompanyStatsRequest().from_dict(request.json)
     resp = {}
     with Session() as session:
         resp['stages'] = {
-            stage.name: {attr: count(stage, str2field(attr)) for attr in req.interested_attributes}
+            stage.name: filter_small_samples(
+                {attr: count(stage, str2field(attr)) for attr in req.interested_attributes})
             for stage in Stage
         }
     domain = Session().query(DbApp.company_domain).filter(DbApp.company_name == name).distinct().first()
