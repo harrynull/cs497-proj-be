@@ -23,7 +23,7 @@ class DbApp(Base):
     indigenous = Column(Integer)
     marriage_status = Column(Integer)
     education_level = Column(Integer)
-    graduated = Column(Boolean)
+    graduation_year = Column(Integer)
     years_of_experience = Column(Integer)
     gpa = Column(Float)
 

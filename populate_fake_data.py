@@ -41,8 +41,10 @@ COMPANIES = [
     ('Microsoft', 'microsoft.com'),
     ('Apple', 'apple.com'),
 ]
+
+
 if __name__ == '__main__':
-    for i in range(250):
+    for i in range(15):
         company = random.choice(COMPANIES)
         print(requests.post(ENDPOINT, json=api.SubmitApplicationStatus(
             company_name=company[0],

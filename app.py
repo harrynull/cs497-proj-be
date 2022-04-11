@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 @app.route('/company/', methods=['GET'])
 def get_companies():
-    return jsonify([Company(name=c.company_name, domain=c.company_domain)
-                    for c in Session().query(DbApp.company_name, DbApp.company_domain)
-                   .distinct().all()])
+    return jsonify(list([Company(name=c.company_name, domain=c.company_domain)
+                         for c in Session().query(DbApp.company_name, DbApp.company_domain)
+                        .distinct().all()]))
 
 
 @app.route('/company/<name>/jobs/', methods=['GET'])
@@ -99,13 +99,12 @@ def submit_app():
             indigenous=application.indigenous,
             marriage_status=application.marriage_status,
             education_level=application.education_level,
-            graduated=application.graduated,
+            graduation_year=application.year_of_graduation,
             years_of_experience=application.years_of_experience,
-            co_op_term=application.co_op_term,
             gpa=application.gpa,
         ))
         session.commit()
-    return "OK"
+    return '"OK"'
 
 
 if __name__ == '__main__':
