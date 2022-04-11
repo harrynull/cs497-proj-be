@@ -36,7 +36,8 @@ def get_company_jobs(name: str):
 #               "China": 0.1
 #           }
 #       }
-#   }
+#   },
+#   domain: "xx.com"
 # }
 @app.route('/company/<name>', methods=['POST'])
 def get_company_stats(name: str):
@@ -61,9 +62,8 @@ def get_company_stats(name: str):
             "indigenous": DbApp.indigenous,
             "marriage_status": DbApp.marriage_status,
             "education_level": DbApp.education_level,
-            "graduated": DbApp.graduated,
+            "year_of_graduation": DbApp.graduation_year,
             "years_of_experience": DbApp.years_of_experience,
-            "co_op_term": DbApp.co_op_term,
         }[attr_name]
 
     req = CompanyStatsRequest().from_dict(request.json)
@@ -73,7 +73,8 @@ def get_company_stats(name: str):
             stage.name: {attr: count(stage, str2field(attr)) for attr in req.interested_attributes}
             for stage in Stage
         }
-    resp['domain'] = Session().query(DbApp.company_domain).filter(DbApp.company_name == name).distinct().first()[0]
+    domain = Session().query(DbApp.company_domain).filter(DbApp.company_name == name).distinct().first()
+    resp['domain'] = domain[0] if domain else None
     return resp
 
 
