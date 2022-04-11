@@ -69,7 +69,7 @@ def get_company_stats(name: str):
 
     # filter small samples
     def filter_small_samples(attr_counts: dict):
-        if min(sum(v.values()) for v in attr_counts.values()) < MIN_SAMPLES:
+        if min(sum(v.values()) for v in attr_counts.values() if sum(v.values()) > 0) < MIN_SAMPLES:
             return {}
         return attr_counts
 
