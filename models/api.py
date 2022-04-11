@@ -92,9 +92,8 @@ class SubmitApplicationStatus(betterproto.Message):
     indigenous: "BooleanAnswer" = betterproto.enum_field(14)
     marriage_status: "MarriageStatus" = betterproto.enum_field(15)
     education_level: "EducationLevel" = betterproto.enum_field(16)
-    year_of_graduation: str = betterproto.string_field(17)
+    year_of_graduation: int = betterproto.int32_field(17)
     years_of_experience: int = betterproto.int32_field(18)
-    co_op_term: int = betterproto.int32_field(19)
     gpa: float = betterproto.double_field(20)
 
 

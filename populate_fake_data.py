@@ -7,7 +7,7 @@ from models import api
 
 
 def randbool(percent_true):
-    return bool(random.randint(0, 100) < percent_true)
+    return api.BooleanAnswer.YES if bool(random.randint(0, 100) < percent_true) else api.BooleanAnswer.NO
 
 
 def randchoice(percents, choices):
@@ -29,11 +29,24 @@ def uniformenum(enum):
 
 
 ENDPOINT = 'http://localhost:8080/apps/'
+COMPANIES = [
+    ('Google', 'google.com'),
+    ('Shopify', 'shopify.com'),
+    ('Faire', 'faire.com'),
+    ('Spotify', 'spotify.com'),
+    ('Meta', 'facebook.com'),
+    ('Twitter', 'twitter.com'),
+    ('Amazon', 'amazon.com'),
+    ('Netflix', 'netflix.com'),
+    ('Microsoft', 'microsoft.com'),
+    ('Apple', 'apple.com'),
+]
 if __name__ == '__main__':
     for i in range(250):
+        company = random.choice(COMPANIES)
         print(requests.post(ENDPOINT, json=api.SubmitApplicationStatus(
-            company_name=random.choice(['Google', 'Shopify', 'Spotify', 'Meta', 'Twitter', 'Instagram', 'Facebook',
-                                        'Amazon', 'Netflix', 'Microsoft', 'Apple']),
+            company_name=company[0],
+            company_domain=company[1],
             stage=uniformenum(api.Stage),
             job_title=randchoice([30, 50, 20], ['Software Engineer', 'Software Engineer Intern', 'QA Engineer']),
             hourly_compensation=30,
@@ -49,8 +62,7 @@ if __name__ == '__main__':
             indigenous=randbool(5),
             marriage_status=randenum([75, 10, 5, 5, 5], api.MarriageStatus),
             education_level=randenum([5, 10, 15, 50, 10, 5, 5], api.EducationLevel),
-            graduated=randbool(15),
+            year_of_graduation=random.randint(2020, 2026),
             years_of_experience=random.randint(0, 3),
-            co_op_term=random.randint(1, 6),
             gpa=random.normalvariate(50, 5),
         ).to_dict()).text)

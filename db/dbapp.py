@@ -25,7 +25,6 @@ class DbApp(Base):
     education_level = Column(Integer)
     graduated = Column(Boolean)
     years_of_experience = Column(Integer)
-    co_op_term = Column(Integer)
     gpa = Column(Float)
 
     def __repr__(self):
