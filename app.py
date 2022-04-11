@@ -92,6 +92,9 @@ def submit_app():
         return e.name if e else None
 
     application = SubmitApplicationStatus().from_dict(request.json)
+    if application.company_name is None or application.company_name == "":
+        return '"Company name is required"', 400
+
     with Session() as session:
         session.add(DbApp(
             company_name=application.company_name,
