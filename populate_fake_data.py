@@ -20,11 +20,11 @@ def randchoice(percents, choices):
 
 
 def randenum(percents, enum):
-    return randchoice(percents, list(enum)).name
+    return randchoice(percents, list(enum))
 
 
 def uniformenum(enum):
-    return random.choice(list(enum)).name
+    return random.choice(list(enum))
 
 
 ENDPOINT = 'http://localhost:8080/apps/'
@@ -43,7 +43,7 @@ COMPANIES = [
 if __name__ == '__main__':
     for i in range(15):
         company = random.choice(COMPANIES)
-        print(requests.post(ENDPOINT, json=api.SubmitApplicationStatus(
+        payload = api.SubmitApplicationStatus(
             company_name=company[0],
             company_domain=company[1],
             stage=uniformenum(api.Stage),
@@ -62,4 +62,5 @@ if __name__ == '__main__':
             year_of_graduation=random.randint(2020, 2026),
             years_of_experience=random.randint(0, 3),
             gpa=random.normalvariate(50, 5),
-        ).to_dict(include_default_values=True)).text)
+        ).to_dict(include_default_values=True)
+        print(requests.post(ENDPOINT, json=payload).text)

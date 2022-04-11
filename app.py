@@ -91,7 +91,7 @@ def get_company_stats(name: str):
 @app.route('/apps/', methods=['POST'])
 def submit_app():
     def name(e):
-        return e.name if e else None
+        return e.name if type(e) is not int else None
 
     application = SubmitApplicationStatus().from_dict(request.json)
     if application.company_name is None or application.company_name == "":
