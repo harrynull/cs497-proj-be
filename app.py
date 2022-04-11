@@ -88,6 +88,9 @@ def get_company_stats(name: str):
 
 @app.route('/apps/', methods=['POST'])
 def submit_app():
+    def name(e):
+        return e.name if e else None
+
     application = SubmitApplicationStatus().from_dict(request.json)
     with Session() as session:
         session.add(DbApp(
@@ -95,19 +98,17 @@ def submit_app():
             company_domain=application.company_domain,
             stage=application.stage,
             job_title=application.job_title,
-            hourly_compensation=application.hourly_compensation,
-            date_of_decision=application.date_of_decision,
-            gender=application.gender.name,
-            sexual_orientation=application.sexual_orientation.name,
-            racial_origin=application.racial_origin.name,
-            visa_status=application.visa_status.name,
+            gender=name(application.gender),
+            sexual_orientation=name(application.sexual_orientation),
+            racial_origin=name(application.racial_origin),
+            visa_status=name(application.visa_status),
             nationality=application.nationality,
-            disability=application.disability.name,
-            veteran_status=application.veteran_status.name,
-            criminal_background=application.criminal_background.name,
-            indigenous=application.indigenous.name,
-            marriage_status=application.marriage_status.name,
-            education_level=application.education_level.name,
+            disability=name(application.disability),
+            veteran_status=name(application.veteran_status),
+            criminal_background=name(application.criminal_background),
+            indigenous=name(application.indigenous),
+            marriage_status=name(application.marriage_status),
+            education_level=name(application.education_level),
             graduation_year=application.year_of_graduation,
             years_of_experience=application.years_of_experience,
             gpa=application.gpa,

@@ -1,4 +1,3 @@
-import datetime
 import random
 
 import requests
@@ -49,8 +48,6 @@ if __name__ == '__main__':
             company_domain=company[1],
             stage=uniformenum(api.Stage),
             job_title=randchoice([30, 50, 20], ['Software Engineer', 'Software Engineer Intern', 'QA Engineer']),
-            hourly_compensation=30,
-            date_of_decision=int(datetime.datetime.now().timestamp()),
             gender=randenum([40, 40, 5, 5, 3, 3, 3, 1], api.Gender),
             sexual_orientation=randenum([94, 3, 1, 1, 1], api.SexualOrientation),
             racial_origin=uniformenum(api.RacialOrigin),
