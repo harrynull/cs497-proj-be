@@ -46,7 +46,7 @@ def get_company_stats(name: str):
         q = session.query(attr_of_interest, func.count(attr_of_interest)).filter(DbApp.company_name == name)
         if req.job_title_filter:
             q = q.filter(DbApp.job_title == req.job_title_filter)
-        result = q.filter(DbApp.stage == stg).group_by(attr_of_interest).all()
+        result = q.filter(DbApp.stage == stg).group_by(attr_of_interest).filter(attr_of_interest != None).all()
         return {r[0]: r[1] for r in result}
 
     # convert attr_name to the corresponding DbApp field
@@ -69,9 +69,11 @@ def get_company_stats(name: str):
 
     # filter small samples
     def filter_small_samples(attr_counts: dict):
-        if min(sum(v.values()) for v in attr_counts.values() if sum(v.values()) > 0) < MIN_SAMPLES:
+        fixed_dict = {k: v for k, v in attr_counts.items() if k is not None}
+        counts = list(sum(v.values()) for v in fixed_dict.values())
+        if min(counts) < MIN_SAMPLES:
             return {}
-        return attr_counts
+        return fixed_dict
 
     req = CompanyStatsRequest().from_dict(request.json)
     resp = {}

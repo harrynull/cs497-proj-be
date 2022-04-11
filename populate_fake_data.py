@@ -20,11 +20,11 @@ def randchoice(percents, choices):
 
 
 def randenum(percents, enum):
-    return randchoice(percents, list(enum))
+    return randchoice(percents, list(enum)).name
 
 
 def uniformenum(enum):
-    return random.choice(list(enum))
+    return random.choice(list(enum)).name
 
 
 ENDPOINT = 'http://localhost:8080/apps/'
